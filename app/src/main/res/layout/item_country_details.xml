@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_item_country_details_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_spacing"
+        android:layout_marginLeft="@dimen/horizontal_spacing"
+        android:layout_marginEnd="@dimen/horizontal_spacing"
+        android:layout_marginRight="@dimen/horizontal_spacing"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/colorTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="title" />
+
+    <TextView
+        android:id="@+id/tv_item_country_details_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontal_spacing"
+        android:layout_marginLeft="@dimen/horizontal_spacing"
+        android:layout_marginEnd="@dimen/horizontal_spacing"
+        android:layout_marginRight="@dimen/horizontal_spacing"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/colorDetails"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/iv_item_country_details_thumb"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_country_details_title"
+        tools:text="details" />
+
+    <ImageView
+        android:id="@+id/iv_item_country_details_thumb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_spacing"
+        android:layout_marginRight="@dimen/horizontal_spacing"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_country_details_title"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_launcher_background" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
