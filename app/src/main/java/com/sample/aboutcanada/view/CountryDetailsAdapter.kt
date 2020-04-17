@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.sample.aboutcanada.R
 import com.sample.aboutcanada.model.entity.Rows
 import kotlinx.android.synthetic.main.item_country_details.view.*
@@ -20,7 +23,7 @@ class CountryDetailsAdapter(private val items: List<Rows>, private val context: 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], context)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -28,10 +31,16 @@ class CountryDetailsAdapter(private val items: List<Rows>, private val context: 
         private val textViewDesc = view.tv_item_country_details_desc
         private val imageViewThumb = view.iv_item_country_details_thumb
 
-        fun bind(rows: Rows) {
+        fun bind(rows: Rows, context: Context) {
             textViewTitle.text = rows.title
             textViewDesc.text = rows.description
-            // TODO load image
+
+            val requestOptions = RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .override(100, 100)
+
+            val glide = Glide.with(context).load(rows.imageHref).apply(requestOptions)
+            glide.into(imageViewThumb)
         }
     }
 

@@ -50,6 +50,7 @@ class CountryDetailsFragment : Fragment(), CountryView {
     }
 
     override fun countriesReady(countryDetails: CountryDetails) {
+        activity?.title = countryDetails.title
         rv_country_details.adapter =
             countryDetails.rows?.let { CountryDetailsAdapter(it, requireContext()) }
     }
