@@ -8,7 +8,7 @@ import com.sample.aboutcanada.model.entity.CountryDetails;
  */
 public interface CountryView extends BaseMVPView {
 
-    void countriesReady(CountryDetails countryDetails);
+    void countryDetailsReady(CountryDetails countryDetails);
 
-    void countriesFailed();
+    void countryDetailsFailed();
 }

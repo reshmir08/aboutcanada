@@ -5,4 +5,4 @@ package com.sample.aboutcanada.model.entity
  */
 data class CountryDetails(var title: String, var rows: List<Rows>?)
 
-data class Rows(var title: String, var description: String, var imageHref: String)
+data class Rows(var title: String?, var description: String?, var imageHref: String?)

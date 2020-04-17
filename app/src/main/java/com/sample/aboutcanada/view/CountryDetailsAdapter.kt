@@ -37,7 +37,7 @@ class CountryDetailsAdapter(private val items: List<Rows>, private val context: 
 
             val requestOptions = RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .override(100, 100)
+                .override(200, 200)
 
             val glide = Glide.with(context).load(rows.imageHref).apply(requestOptions)
             glide.into(imageViewThumb)

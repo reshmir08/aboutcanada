@@ -35,7 +35,7 @@ class CountryPresenterTest {
 
     @Test
     fun shouldCallGetCountryDetails_WhenGetCountriesIsCalled() {
-        countryPresenter.getCountries()
+        countryPresenter.getCountryDetails()
         verify(countryView).showLoader()
         verify(interactor).getCountryDetails(countryPresenter)
     }
@@ -45,16 +45,16 @@ class CountryPresenterTest {
 
         Mockito.doAnswer { invocation ->
             val listener: CountryInteractorImpl.CountryListener = invocation.getArgument(0)
-            listener.onCountriesResponse(countryDetails)
+            listener.onCountryDetailsSuccess(countryDetails)
             null
         }.`when`<CountryInteractor>(interactor).getCountryDetails(
             anyOrNull()
         )
-        countryPresenter.getCountries()
+        countryPresenter.getCountryDetails()
 
         verify(countryView).showLoader()
         verify(countryView).hideLoader()
-        verify(countryView).countriesReady(countryDetails)
+        verify(countryView).countryDetailsReady(countryDetails)
     }
 
     @Test
@@ -67,10 +67,10 @@ class CountryPresenterTest {
         }.`when`<CountryInteractor>(interactor).getCountryDetails(
             anyOrNull()
         )
-        countryPresenter.getCountries()
+        countryPresenter.getCountryDetails()
 
         verify(countryView).showLoader()
         verify(countryView).hideLoader()
-        verify(countryView).countriesFailed()
+        verify(countryView).countryDetailsFailed()
     }
 }

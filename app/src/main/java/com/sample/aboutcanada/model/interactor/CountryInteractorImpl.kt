@@ -12,8 +12,7 @@ import retrofit2.Response
 class CountryInteractorImpl : CountryInteractor {
     //    private var countryService = CountryService()
     override fun getCountryDetails(countryListener: CountryListener) {
-        CountryService().getAPI()
-            .results
+        CountryService().getAPI().results
             .enqueue(object : Callback<CountryDetails?> {
                 override fun onResponse(
                     call: Call<CountryDetails?>,
@@ -21,7 +20,9 @@ class CountryInteractorImpl : CountryInteractor {
                 ) {
                     val countryDetails = response.body()
                     if (countryDetails != null) {
-                        countryListener.onCountriesResponse(countryDetails)
+                        val nonNullRows = countryDetails.rows?.filter { it.title != null}
+                        countryDetails.rows = nonNullRows
+                        countryListener.onCountryDetailsSuccess(countryDetails)
                     }
                 }
 
@@ -38,7 +39,7 @@ class CountryInteractorImpl : CountryInteractor {
      * This interface communicates with the presenter for success and failure responses
      */
     interface CountryListener {
-        fun onCountriesResponse(countryDetails: CountryDetails?)
+        fun onCountryDetailsSuccess(countryDetails: CountryDetails?)
         fun onFailure()
     }
 }

@@ -13,18 +13,18 @@ class CountryPresenter(
     private val countryInteractor: CountryInteractor
 ) : CountryListener {
 
-    fun getCountries() {
+    fun getCountryDetails() {
         countryView.showLoader()
         countryInteractor.getCountryDetails(this)
     }
 
-    override fun onCountriesResponse(countryDetails: CountryDetails?) {
+    override fun onCountryDetailsSuccess(countryDetails: CountryDetails?) {
         countryView.hideLoader()
-        countryView.countriesReady(countryDetails)
+        countryView.countryDetailsReady(countryDetails)
     }
 
     override fun onFailure() {
         countryView.hideLoader()
-        countryView.countriesFailed()
+        countryView.countryDetailsFailed()
     }
 }

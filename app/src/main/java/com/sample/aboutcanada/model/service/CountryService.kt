@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * This class represents the country service.
+ * This class represents the country details service.
  */
 class CountryService {
     private var retrofit: Retrofit? = null
