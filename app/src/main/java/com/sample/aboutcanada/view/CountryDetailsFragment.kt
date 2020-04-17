@@ -25,7 +25,7 @@ class CountryDetailsFragment : Fragment(), CountryView {
         super.onCreate(savedInstanceState)
         DaggerCountryComponent.builder().countryModule(CountryModule()).build().inject(this)
 
-        CountryPresenter(this, countryInteractor).countries
+        CountryPresenter(this, countryInteractor).getCountries()
     }
 
     override fun onCreateView(

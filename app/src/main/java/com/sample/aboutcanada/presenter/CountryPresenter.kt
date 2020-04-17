@@ -12,11 +12,11 @@ class CountryPresenter(
     private val countryView: CountryView,
     private val countryInteractor: CountryInteractor
 ) : CountryListener {
-    val countries: Unit
-        get() {
-            countryView.showLoader()
-            countryInteractor.getCountryDetails(this)
-        }
+
+    fun getCountries() {
+        countryView.showLoader()
+        countryInteractor.getCountryDetails(this)
+    }
 
     override fun onCountriesResponse(countryDetails: CountryDetails?) {
         countryView.hideLoader()
