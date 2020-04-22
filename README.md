@@ -7,4 +7,4 @@ This sample application covers following concepts with the help of a simple exam
 * Unit Testing - JUnit and Mockito
 * Image loading using Glide library
 * Retrofit 2.0 for REST API
-
+* Room API for offline support
