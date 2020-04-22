@@ -1,10 +1,12 @@
 package com.sample.aboutcanada.model.interactor
 
-import com.sample.aboutcanada.model.interactor.CountryInteractorImpl.CountryListener
+import androidx.lifecycle.LiveData
+import com.sample.aboutcanada.model.entity.Rows
 
 /**
  * This interface defines the contract for Interactor implementation
  */
 interface CountryInteractor {
-    fun getCountryDetails(countryListener: CountryListener)
+    fun getCountryDetails(countryListener: CountryInteractorImpl.CountryListener)
+    fun getCountryDetailsOffline(countryListener: CountryInteractorImpl.CountryListener): LiveData<List<Rows>>?
 }

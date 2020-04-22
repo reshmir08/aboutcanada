@@ -1,5 +1,6 @@
 package com.sample.aboutcanada.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,6 @@ import com.sample.aboutcanada.model.interactor.CountryInteractor
 import com.sample.aboutcanada.presenter.CountryPresenter
 import kotlinx.android.synthetic.main.fragment_country_details.*
 import javax.inject.Inject
-
 
 /**
  * This fragment shows the details of the country
@@ -57,8 +57,9 @@ class CountryDetailsFragment : Fragment(), CountryView {
             )
         )
 
+        srl_recycler.setColorSchemeColors(Color.WHITE)
+
         srl_recycler.setOnRefreshListener {
-            rv_country_details.adapter = null
             srl_recycler.isRefreshing = false
             getCountryDetails()
         }
@@ -68,20 +69,17 @@ class CountryDetailsFragment : Fragment(), CountryView {
         if (ConnectionHelper.hasNetwork(requireContext())) {
             CountryPresenter(this, countryInteractor).getCountryDetails()
         } else {
-            srl_recycler.visibility = View.GONE
-            tv_country_details_error.visibility = View.VISIBLE
-            tv_country_details_error.text = getString(R.string.err_no_internet_connection)
+            CountryPresenter(this, countryInteractor).getCountryDetailsOffline()
         }
     }
 
     private fun initializeViews() {
-        tv_country_details_error.setOnClickListener { getCountryDetails() }
-
-        val decoration = DividerItemDecoration(
-            requireContext(),
-            VERTICAL
+        rv_country_details.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                VERTICAL
+            )
         )
-        rv_country_details.addItemDecoration(decoration)
     }
 
     override fun countryDetailsReady(countryDetails: CountryDetails) {
@@ -90,6 +88,7 @@ class CountryDetailsFragment : Fragment(), CountryView {
         activity?.title = countryDetails.title
         rv_country_details.adapter =
             countryDetails.rows?.let { CountryDetailsAdapter(it, requireContext()) }
+        rv_country_details.adapter?.notifyDataSetChanged()
     }
 
     override fun showLoader() {
@@ -103,9 +102,18 @@ class CountryDetailsFragment : Fragment(), CountryView {
     }
 
     override fun countryDetailsFailed() {
-        rv_country_details.adapter = null
+        rv_country_details.adapter = CountryDetailsAdapter(listOf(), requireContext())
+        srl_recycler.visibility = View.VISIBLE
         pb_country_details.visibility = View.GONE
         tv_country_details_error.visibility = View.VISIBLE
         tv_country_details_error.text = getString(R.string.err_no_data)
+    }
+
+    override fun onOfflineError() {
+        rv_country_details.adapter = CountryDetailsAdapter(listOf(), requireContext())
+        srl_recycler.visibility = View.VISIBLE
+        pb_country_details.visibility = View.GONE
+        tv_country_details_error.visibility = View.VISIBLE
+        tv_country_details_error.text = getString(R.string.err_no_internet_connection)
     }
 }

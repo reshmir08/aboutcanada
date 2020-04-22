@@ -11,4 +11,6 @@ public interface CountryView extends BaseMVPView {
     void countryDetailsReady(CountryDetails countryDetails);
 
     void countryDetailsFailed();
+
+    void onOfflineError();
 }
